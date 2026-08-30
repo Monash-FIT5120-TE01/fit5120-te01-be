@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@7.2.1
 jobs:
-  build-and-test:
+  test:
     docker:
       - image: 'cimg/base:stable'
     steps:
