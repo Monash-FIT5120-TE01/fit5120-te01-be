@@ -1,0 +1,66 @@
+version: 2.1
+orbs:
+  node: circleci/node@7.2.1
+jobs:
+  build-and-test:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - node/install:
+        node-version: '24.18'
+      - node/install-packages
+      - run:
+        command: npm run test
+  deploy-to-staging:
+    description: Deploy application to staging server
+    docker:
+      - image: 'cimg/base:stable'
+    environment:
+      VERCEL_ORG_ID: $VERCEL_ORG_ID
+      VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID
+    steps:
+      - checkout
+      - node/install:
+        node-version: '24.18'
+      - node/install-packages
+      - run:
+        name: Install Vercel CLI
+        command: sudo npm install -g vercel
+      - run:
+        name: Pull Vercel environment information
+        command: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+      - run:
+        name: Build staging server artifacts
+        command: vercel build --token=$VERCEL_TOKEN
+      - run:
+        name: Deploy prebuilt to Vercel
+        command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
+
+workflows:
+  test:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore:
+                - main
+                - develop
+  # deploy-to-staging:
+  #   jobs:
+  #     - test:
+  #         filters:
+  #           branches:
+  #             only: develop
+  #     - deploy-to-staging:
+  #         requires:
+  #           - test
+  # deploy-to-live:
+  #   jobs:
+  #     - test:
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - deploy-to-live:
+  #         requires:
+  #           - test
