@@ -71,7 +71,7 @@ export class BuildingService {
           footprintExtrusionM: row['building_part_footprint_extrusion_m'],
           calculatedExtrusionM: row['building_part_calculated_extrusion_m'],
           relativeBaseHeightM: row['building_part_relative_base_height_m'],
-          relativeTopHeightM: row['building_part_component_count'],
+          relativeTopHeightM: row['building_part_relative_top_height_m'],
           footprintAreaM2: row['building_part_footprint_area_m2'],
         },
       })),

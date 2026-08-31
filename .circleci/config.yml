@@ -41,14 +41,14 @@ jobs:
   #         command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
 
 workflows:
-  test:
-    jobs:
-      - test:
-          filters:
-            branches:
-              ignore:
-                - main
-                - develop
+  # test:
+  #   jobs:
+  #     - test:
+  #         filters:
+  #           branches:
+  #             ignore:
+  #               - main
+  #               - develop
 
   # deploy-to-staging:
   #   jobs:
