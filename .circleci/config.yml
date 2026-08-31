@@ -1,6 +1,8 @@
 version: 2.1
+
 orbs:
   node: circleci/node@7.2.1
+
 jobs:
   test:
     docker:
@@ -8,10 +10,11 @@ jobs:
     steps:
       - checkout
       - node/install:
-        node-version: '24.18'
+          node-version: '24.18'
       - node/install-packages
       - run:
-        command: npm run test
+          command: npm run test
+
   # deploy-to-staging:
   #   description: Deploy application to staging server
   #   docker:
@@ -22,20 +25,20 @@ jobs:
   #   steps:
   #     - checkout
   #     - node/install:
-  #       node-version: '24.18'
+  #         node-version: '24.18'
   #     - node/install-packages
   #     - run:
-  #       name: Install Vercel CLI
-  #       command: sudo npm install -g vercel
+  #         name: Install Vercel CLI
+  #         command: sudo npm install -g vercel
   #     - run:
-  #       name: Pull Vercel environment information
-  #       command: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+  #         name: Pull Vercel environment information
+  #         command: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
   #     - run:
-  #       name: Build staging server artifacts
-  #       command: vercel build --token=$VERCEL_TOKEN
+  #         name: Build staging server artifacts
+  #         command: vercel build --token=$VERCEL_TOKEN
   #     - run:
-  #       name: Deploy prebuilt to Vercel
-  #       command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
+  #         name: Deploy prebuilt to Vercel
+  #         command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
 
 workflows:
   test:
@@ -46,6 +49,7 @@ workflows:
               ignore:
                 - main
                 - develop
+
   # deploy-to-staging:
   #   jobs:
   #     - test:
@@ -55,6 +59,7 @@ workflows:
   #     - deploy-to-staging:
   #         requires:
   #           - test
+
   # deploy-to-live:
   #   jobs:
   #     - test:
