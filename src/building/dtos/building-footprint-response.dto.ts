@@ -20,6 +20,7 @@ export interface BuildingFootprintProperties {
   componentCount: number;
   structureMinElevationAhdM: number;
   structureMaxElevationAhdM: number;
+  streetAddress: string;
   structureHeightM: number;
   footprintType: string;
   roofType: string;

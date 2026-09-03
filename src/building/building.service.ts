@@ -41,9 +41,17 @@ export class BuildingService {
         'building_part.relativeTopHeightM',
         'building_part.footprintAreaM2',
         'ST_AsGeoJSON(building_part.geometry)::jsonb AS geometry',
+        "v.properties_details -> 0 ->> 'street_address' AS street_address",
       ])
-      .innerJoinAndSelect('building.parts', 'building_part')
+      .innerJoin('building.parts', 'building_part')
+      .innerJoin(
+        'v_existing_building_info',
+        'v',
+        'v.building_id = building.buildingId',
+      )
       .getRawMany();
+
+    console.log(query[0]);
 
     const res = {
       type: 'FeatureCollection',
@@ -52,7 +60,7 @@ export class BuildingService {
         type: 'Feature',
         id: row['building_part_building_part_id'],
         objectId: row['building_part_objectid'],
-        geometry: row['building_part_geometry'],
+        geometry: row['geometry'],
         properties: {
           buildingId: row['building_building_id'],
           structureId: row['building_structure_id'],
@@ -73,6 +81,7 @@ export class BuildingService {
           relativeBaseHeightM: row['building_part_relative_base_height_m'],
           relativeTopHeightM: row['building_part_relative_top_height_m'],
           footprintAreaM2: row['building_part_footprint_area_m2'],
+          streetAddress: row['street_address'],
         },
       })),
     };
