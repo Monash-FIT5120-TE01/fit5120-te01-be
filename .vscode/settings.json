@@ -2,5 +2,9 @@
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.formatOnSaveMode": "file",
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "circleci.filters.branchFilter": "allBranches",
+  "circleci.persistedProjectSelection": [
+    "circleci/AJVgSeEbiV9SmoGN6WYpRt/7uayzZtc9Js9UVxMAbVKFL"
+  ]
 }

@@ -1,0 +1,6 @@
+export enum DevelopmentStatus {
+  APPLIED = 'APPLIED',
+  APPROVED = 'APPROVED',
+  UNDER_CONSTRUCTION = 'UNDER CONSTRUCTION',
+  COMPLETED = 'COMPLETED',
+}
