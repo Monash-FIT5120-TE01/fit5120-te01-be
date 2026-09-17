@@ -13,7 +13,7 @@ const environment = process.env.NODE_ENV || 'local';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${environment}`,
+      envFilePath: [`.env.${environment}`, '.env'],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
