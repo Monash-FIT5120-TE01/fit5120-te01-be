@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Building } from './entities/building.entity.js';
 import { BuildingPart } from './entities/building-part.entity.js';
 import { ExistingBuildingInfoView } from './entities/building-info-view.entity.js';
+import { LandmarkInfo } from './entities/landmark-info.entity.js';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ExistingBuildingInfoView } from './entities/building-info-view.entity.j
       Building,
       BuildingPart,
       ExistingBuildingInfoView,
+      LandmarkInfo,
     ]),
   ],
   controllers: [BuildingController],

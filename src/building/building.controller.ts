@@ -32,4 +32,9 @@ export class BuildingController {
 
     return res;
   }
+
+  @Get('/landmarks')
+  async getLandmarkInfo() {
+    return await this.buildingService.getLandmarksInfo();
+  }
 }
