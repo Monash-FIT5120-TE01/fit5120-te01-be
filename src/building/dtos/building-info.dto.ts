@@ -5,3 +5,10 @@ export interface BuildingInfoResponseDto {
   height: number;
   details: PropertyDetails | {};
 }
+
+export interface LandmarkInfoResponseDto {
+  landmark_name: string;
+  longitude: number;
+  latitude: number;
+  address: string;
+}

@@ -7,7 +7,11 @@ import {
   ExistingBuildingInfoView,
   PropertyDetails,
 } from './entities/building-info-view.entity.js';
-import { BuildingInfoResponseDto } from './dtos/building-info.dto.js';
+import {
+  BuildingInfoResponseDto,
+  LandmarkInfoResponseDto,
+} from './dtos/building-info.dto.js';
+import { LandmarkInfo } from './entities/landmark-info.entity.js';
 
 @Injectable()
 export class BuildingService {
@@ -17,6 +21,9 @@ export class BuildingService {
 
     @InjectRepository(ExistingBuildingInfoView)
     private readonly _existingBuildingInfoViewRepo: Repository<ExistingBuildingInfoView>,
+
+    @InjectRepository(LandmarkInfo)
+    private readonly _landmarkInfoRepo: Repository<LandmarkInfo>,
   ) {}
 
   async findAllFootprints(): Promise<BuildingFootprintResponseDto> {
@@ -50,8 +57,6 @@ export class BuildingService {
         'v.building_id = building.buildingId',
       )
       .getRawMany();
-
-    console.log(query[0]);
 
     const res = {
       type: 'FeatureCollection',
@@ -107,5 +112,18 @@ export class BuildingService {
               : {},
         }
       : null;
+  }
+
+  async getLandmarksInfo(): Promise<LandmarkInfoResponseDto[]> {
+    const query = await this._landmarkInfoRepo
+      .createQueryBuilder('li')
+      .select([
+        'li.landmark_name AS landmark_name',
+        'li.longitude AS longitude',
+        'li.latitude AS latitude',
+        'li.address AS address',
+      ])
+      .getRawMany();
+    return query;
   }
 }
