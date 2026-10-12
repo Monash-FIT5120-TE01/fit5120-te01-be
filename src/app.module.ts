@@ -7,9 +7,10 @@ import { BuildingModule } from './building/building.module.js';
 import { DevelopmentModule } from './development/development.module.js';
 import { PropertyModule } from './property/property.module.js';
 import { FuturePlansModule } from './future-plans/future-plans.module.js';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { PedestrianActivitiesModule } from './pedestrian-activities/pedestrian-activities.module.js';
 import { ScheduleModule } from '@nestjs/schedule';
+import { APP_GUARD } from '@nestjs/core';
 
 const environment = process.env.NODE_ENV || 'local';
 
@@ -40,6 +41,6 @@ const environment = process.env.NODE_ENV || 'local';
     PedestrianActivitiesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
 export class AppModule {}
