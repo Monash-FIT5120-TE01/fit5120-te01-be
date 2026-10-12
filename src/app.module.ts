@@ -8,6 +8,8 @@ import { DevelopmentModule } from './development/development.module.js';
 import { PropertyModule } from './property/property.module.js';
 import { FuturePlansModule } from './future-plans/future-plans.module.js';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { PedestrianActivitiesModule } from './pedestrian-activities/pedestrian-activities.module.js';
+import { ScheduleModule } from '@nestjs/schedule';
 
 const environment = process.env.NODE_ENV || 'local';
 
@@ -30,10 +32,12 @@ const environment = process.env.NODE_ENV || 'local';
     ThrottlerModule.forRoot({
       throttlers: [{ ttl: 60000, limit: 60 }],
     }),
+    ScheduleModule.forRoot(),
     BuildingModule,
     DevelopmentModule,
     PropertyModule,
     FuturePlansModule,
+    PedestrianActivitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
