@@ -6,6 +6,8 @@ import { AppService } from './app.service.js';
 import { BuildingModule } from './building/building.module.js';
 import { DevelopmentModule } from './development/development.module.js';
 import { PropertyModule } from './property/property.module.js';
+import { FuturePlansModule } from './future-plans/future-plans.module.js';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 const environment = process.env.NODE_ENV || 'local';
 
@@ -25,9 +27,13 @@ const environment = process.env.NODE_ENV || 'local';
         synchronize: false,
       }),
     }),
+    ThrottlerModule.forRoot({
+      throttlers: [{ ttl: 60000, limit: 60 }],
+    }),
     BuildingModule,
     DevelopmentModule,
     PropertyModule,
+    FuturePlansModule,
   ],
   controllers: [AppController],
   providers: [AppService],
